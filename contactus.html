@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Us</title>
+  <meta name="description" content="Contact Us page with accessible form and client-side validation.">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:#7dd3fc;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071022 0%, #071021 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      justify-content:center;
+      padding:28px;
+    }
+
+    .wrapper{width:100%;max-width:1100px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:grid;place-items:center;color:#022;font-weight:700}
+    h1{margin:0;font-size:1.6rem}
+    .muted{color:var(--muted)}
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:20px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* left hero */
+    .hero{
+      border-radius:12px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .hero .hero-img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+      background:#081226;
+    }
+    .hero .content{padding:12px}
+    .hero p{color:var(--muted);margin:0 0 12px 0}
+
+    /* right panel / form */
+    .panel{
+      padding:14px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    form{display:grid;gap:10px}
+    label{font-size:0.9rem}
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:inherit;
+      outline:none;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .row{display:flex;gap:8px}
+    .row .col{flex:1}
+
+    .btn{
+      background:linear-gradient(90deg,var(--accent), #60a5fa20);
+      border:none;
+      color:#022;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .status{font-size:0.95rem;color:var(--muted);min-height:1.2em}
+
+    /* small contact-info */
+    .contact-info{display:flex;flex-direction:column;gap:8px;padding-top:6px}
+    .meta{display:flex;gap:8px;align-items:center}
+
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      .hero .hero-img{height:200px}
+    }
+    @media (max-width:560px){
+      body{padding:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper" role="main">
+    <header>
+      <div class="brand" aria-label="Brand">
+        <div class="logo">N</div>
+        <div>
+          <div style="font-weight:700">Nova</div>
+          <div class="muted" style="font-size:0.85rem">Contact Us</div>
+        </div>
+      </div>
+
+      <div class="muted">Have a question? We’ll reply within 48 hours.</div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <!-- Using your uploaded image path as the hero image src -->
+        <img src="/mnt/data/8ea0006a-6a8e-49a4-9aab-6dcf92db4d75.png" alt="Contact hero" class="hero-img" onerror="this.style.display='none'">
+
+        <div class="content">
+          <h2 id="heroTitle">Let's get in touch</h2>
+          <p>We'd love to hear from you — whether it's feedback, a question about features, or a partnership idea. Fill out the form and we'll get back as soon as we can.</p>
+
+          <div class="contact-info" aria-hidden="false">
+            <div class="meta"><strong>Email:</strong> <span class="muted">support@example.com</span></div>
+            <div class="meta"><strong>Phone:</strong> <span class="muted">+63 912 345 6789</span></div>
+            <div class="meta"><strong>Address:</strong> <span class="muted">Cebu City, Philippines</span></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-labelledby="formTitle">
+        <h3 id="formTitle" style="margin:0">Contact form</h3>
+        <p class="muted" style="margin:0 0 6px 0">All fields marked with * are required.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="row">
+            <div class="col">
+              <label for="name">Name *</label>
+              <input id="name" name="name" type="text" autocomplete="name" required aria-required="true" />
+            </div>
+            <div class="col">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+63..." />
+            </div>
+          </div>
+
+          <label for="email">Email *</label>
+          <input id="email" name="email" type="email" autocomplete="email" required aria-required="true" />
+
+          <label for="subject">Subject *</label>
+          <select id="subject" name="subject" required>
+            <option value="">— choose a topic —</option>
+            <option>Support / Bug</option>
+            <option>Feedback</option>
+            <option>Partnership</option>
+            <option>Other</option>
+          </select>
+
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required aria-required="true" placeholder="Write your message..."></textarea>
+
+          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;">
+            <div style="display:flex;gap:8px">
+              <button type="submit" class="btn">Send Message</button>
+              <button type="reset" class="secondary">Reset</button>
+            </div>
+            <div class="status" id="formStatus" aria-live="polite"></div>
+          </div>
+        </form>
+
+        <div style="margin-top:auto">
+          <small class="muted">By sending, you agree to our <a href="#" class="muted">privacy policy</a>.</small>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+
+      function validateEmail(email){
+        // digit-by-digit validated pattern (simple)
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      form.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        status.textContent = '';
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const subject = form.subject.value;
+        const message = form.message.value.trim();
+
+        if(!name || !email || !subject || !message){
+          status.textContent = 'Please fill out all required fields.';
+          return;
+        }
+        if(!validateEmail(email)){
+          status.textContent = 'Please enter a valid email address.';
+          return;
+        }
+
+        // fake sending flow for demo (replace with your backend endpoint)
+        status.textContent = 'Sending…';
+        const payload = {
+          name, email, subject, message, phone: form.phone.value.trim()
+        };
+
+        // replace the URL below with your server endpoint (example only)
+        // fetch('/api/contact', { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify(payload) })
+        //  .then(...)
+        // we simulate async send:
+        setTimeout(() => {
+          status.textContent = 'Message sent — thank you!';
+          form.reset();
+        }, 900);
+      });
+
+      // small UX: show basic focus outline when keyboard-tabbing
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Tab') document.body.classList.add('show-focus');
+      });
+    })();
+  </script>
+</body>
+</html>
+
