@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Modern Page</title>
+  <meta name="description" content="A clean, responsive HTML template with accessible markup and small JS enhancements.">
+  <style>
+    /* Reset-ish */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:#7dd3fc;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --max-width:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        linear-gradient(180deg, rgba(125,211,252,0.03) 0%, rgba(0,0,0,0) 40%),
+        radial-gradient(600px 400px at 10% 10%, rgba(125,211,252,0.03), transparent 20%),
+        var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent), rgba(124,58,237,0.25));
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:18px;
+      color:#022;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+
+    nav{display:flex; gap:12px; align-items:center;}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:500;
+      font-size:0.95rem;
+    }
+    nav a:hover{color:var(--accent); background:var(--glass)}
+
+    .btn{
+      background:linear-gradient(90deg,var(--accent), #60a5fa20);
+      border:none;
+      color:#022;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    main{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;
+      padding:28px;
+      box-shadow: 0 20px 40px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 12px 0;
+      font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+      line-height:1.05;
+    }
+    .hero p{color:var(--muted); margin:0 0 18px 0; font-size:1rem}
+
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .search input{
+      flex:1;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:inherit;
+      outline:none;
+    }
+    .search button{padding:10px 12px}
+
+    /* cards */
+    .features{
+      display:grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:22px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      padding:14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .card h3{margin:0 0 8px 0; font-size:1.03rem}
+    .card p{margin:0;color:var(--muted);font-size:0.95rem}
+
+    /* right column - a quick panel */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      padding:16px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .panel h4{margin:0 0 10px 0}
+    .small-list{display:flex;flex-direction:column;gap:8px}
+    .small-list button{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;cursor:pointer}
+
+    /* contact form */
+    form{margin-top:20px; display:grid; gap:10px}
+    label{font-size:0.9rem}
+    input[type="text"], input[type="email"], textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:inherit;
+      resize:vertical;
+    }
+    textarea{min-height:100px}
+
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:0.9rem;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns: 1fr}
+      .features{grid-template-columns: repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      body{padding:16px}
+      .features{grid-template-columns: 1fr}
+      nav{display:none}
+    }
+
+    /* small helper */
+    .muted{color:var(--muted)}
+    .kicker{font-size:0.9rem;color:var(--muted);margin-bottom:6px}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <a href="#" class="brand" aria-label="Homepage">
+        <div class="logo" aria-hidden="true">N</div>
+        <div>
+          <div style="font-weight:700">Nova</div>
+          <div class="muted" style="font-size:0.85rem">Minimal demo</div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary" role="navigation">
+        <a href="#features">Features</a>
+        <a href="#panel">Panel</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="btn" id="themeToggle" aria-pressed="false" title="Toggle accent">✨ Try</button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div>
+          <p class="kicker">Starter template</p>
+          <h1 id="heroTitle">A clean, responsive HTML starter — accessible and tiny</h1>
+          <p>Copy this file, edit content, then paste it into a project. It comes with semantic markup, responsive layout, and small JavaScript to help you get started quickly.</p>
+
+          <div class="search" role="search" aria-label="Search demo">
+            <input id="searchInput" type="text" placeholder="Search (demo)" aria-label="Search"/>
+            <button class="btn" id="searchBtn">Search</button>
+          </div>
+
+          <div class="features" id="features" aria-label="Key features">
+            <article class="card" aria-labelledby="f1">
+              <h3 id="f1">Accessible</h3>
+              <p>Semantic markup and focusable controls for keyboard users and screen readers.</p>
+            </article>
+            <article class="card" aria-labelledby="f2">
+              <h3 id="f2">Responsive</h3>
+              <p>Layout adapts from wide desktop to mobile with simple CSS grid rules.</p>
+            </article>
+            <article class="card" aria-labelledby="f3">
+              <h3 id="f3">Tiny JS</h3>
+              <p>A few lines of vanilla JavaScript handle validation and quick UI bits — no frameworks required.</p>
+            </article>
+          </div>
+        </div>
+
+        <aside class="panel" id="panel" aria-labelledby="panelTitle">
+          <h4 id="panelTitle">Quick Actions</h4>
+          <div class="small-list">
+            <button type="button" class="quick" data-action="sample" aria-label="Show time">Show time <span class="muted" id="timeSpan"></span></button>
+            <button type="button" class="quick" data-action="surprise" aria-label="Surprise me">Surprise me</button>
+            <button type="button" class="quick" data-action="copy" aria-label="Copy URL">Copy page URL</button>
+          </div>
+
+          <form id="contact" aria-labelledby="contactTitle" novalidate>
+            <h4 id="contactTitle" style="margin-top:14px">Contact</h4>
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" required />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Write a short message" required></textarea>
+
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" class="btn">Send</button>
+              <button type="reset" style="padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;cursor:pointer">Reset</button>
+            </div>
+            <div id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:8px"></div>
+          </form>
+        </aside>
+      </section>
+
+      <div class="footer" style="margin-top:18px">
+        <div>Built with ❤️ • <span class="muted">Small template</span></div>
+        <div class="muted">© <span id="year"></span></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Small JS: hook up interactivity and validation.
+    (function(){
+      const year = document.getElementById('year');
+      year.textContent = new Date().getFullYear();
+
+      // quick actions
+      document.querySelectorAll('.quick').forEach(btn=>{
+        btn.addEventListener('click', async (e)=>{
+          const action = btn.dataset.action;
+          if(action === 'sample'){
+            document.getElementById('timeSpan').textContent = new Date().toLocaleTimeString();
+          } else if(action === 'surprise'){
+            alert('Surprise 🎉 — you found a tiny demo!');
+          } else if(action === 'copy'){
+            try{
+              await navigator.clipboard.writeText(location.href);
+              btn.textContent = 'Copied!';
+              setTimeout(()=> btn.textContent = 'Copy page URL', 1500);
+            }catch(e){
+              alert('Could not copy: ' + e);
+            }
+          }
+        });
+      });
+
+      // search demo
+      document.getElementById('searchBtn').addEventListener('click', ()=>{
+        const q = document.getElementById('searchInput').value.trim();
+        if(!q) return alert('Type something to search (demo).');
+        alert('Search demo: "' + q + '" — this would normally query your app.');
+      });
+
+      // theme/accent toggle (tiny visual change)
+      const themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', ()=>{
+        const root = document.documentElement;
+        const altAccent = getComputedStyle(root).getPropertyValue('--accent') === ' #7dd3fc' ? '' : '';
+        // toggles a bit of vibrance by toggling a class on body
+        document.body.classList.toggle('vivid');
+        themeToggle.setAttribute('aria-pressed', String(document.body.classList.contains('vivid')));
+      });
+
+      // form validation + fake submit
+      const form = document.getElementById('contact');
+      const msg = document.getElementById('formMsg');
+      form.addEventListener('submit', (ev)=>{
+        ev.preventDefault();
+        msg.textContent = '';
+        const name = form.querySelector('#name');
+        const email = form.querySelector('#email');
+        const message = form.querySelector('#message');
+
+        if(!name.value.trim() || !email.value.trim() || !message.value.trim()){
+          msg.textContent = 'Please complete all fields.';
+          return;
+        }
+        // basic email pattern
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailPattern.test(email.value)){
+          msg.textContent = 'Please enter a valid email address.';
+          return;
+        }
+
+        // emulate an async send (demo)
+        msg.textContent = 'Sending…';
+        setTimeout(()=>{
+          msg.textContent = 'Message sent — thank you!';
+          form.reset();
+        }, 800);
+      });
+
+      // accessibility: focus visible style for keyboard users
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Tab') document.body.classList.add('show-focus');
+      });
+    })();
+  </script>
+</body>
+</html>
